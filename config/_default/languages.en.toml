@@ -17,10 +17,10 @@ title = "Blowfish"
  [params.author]
    name = "Chick"
 #   email = "youremail@example.com"
-#   image = "img/blowfish_logo.png"
+   image = "profile.jpg"
 #   imageQuality = 96
-#   headline = "I'm only human"
-#   bio = "A little bit about you"
+   headline = "我是个好人"
+   bio = "关于我的二三事"
 #   links = [
 #     { email = "mailto:hello@your_domain.com" },
 #     { link = "https://link-to-some-website.com/" },
