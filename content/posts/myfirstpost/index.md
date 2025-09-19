@@ -1,11 +1,86 @@
 ---
-title: "我的第一篇帖子"
-date: 2023-08-14
+title: "风格化体积云"
+date: 2025-09-19
 draft: false
 summary: "这是网站的第一篇你帖子"
 tags: ["space"]
 ---
 
-## 一个副标题
+{{< katex >}}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nibh nisl, vulputate eu lacus vitae, maximus molestie libero. Vestibulum laoreet, odio et sollicitudin sollicitudin, quam ligula tempus urna, sed sagittis eros eros ac felis. In tristique tortor vitae lacinia commodo. Mauris venenatis ultrices purus nec fermentum. Nunc sit amet aliquet metus. Morbi nisl felis, gravida ac consequat vitae, blandit eu libero. Curabitur porta est in dui elementum porttitor. Maecenas fermentum, tortor ac feugiat fringilla, orci sem sagittis massa, a congue risus ipsum vel massa. Aliquam sit amet nunc vulputate, facilisis neque in, faucibus nisl.
+
+## Ray–AABB 相交函数
+
+### 函数代码
+
+```hlsl
+float2 RayBoxDst(float3 boxMin, float3 boxMax, float3 pos, float3 rayDir)
+{
+    float3 t0 = (boxMin - pos) / rayDir;
+    float3 t1 = (boxMax - pos) / rayDir;
+
+    float3 tmin = min(t0, t1);
+    float3 tmax = max(t0, t1);
+
+    float dstA = max(max(tmin.x, tmin.y), tmin.z);
+    float dstB = min(min(tmax.x, tmax.y), tmax.z);
+
+    float dstToBox = max(0, dstA);
+    float dstInBox = max(0, dstB - dstToBox);
+
+    return float2(dstToBox, dstInBox);
+}
+```
+
+------
+
+### 公式推导
+
+1. **射线方程**
+  $$
+  P(t) = pos + t \cdot rayDir, \quad t \geq 0
+  $$
+  AABB（轴对齐包围盒）：
+  $$
+  boxMin \leq P(t) \leq boxMax
+  $$
+
+2. **每个轴的交点参数**
+
+   ```hlsl
+   t0 = (boxMin - pos) / rayDir;
+   t1 = (boxMax - pos) / rayDir;
+   ```
+
+3. **区分进入与离开**
+
+   ```hlsl
+   tmin = min(t0, t1); // 进入
+   tmax = max(t0, t1); // 离开
+   ```
+
+4. **整体进入 / 离开时刻**
+
+   ```hlsl
+   dstA = max(tmin.x, tmin.y, tmin.z); // 最近进入
+   dstB = min(tmax.x, tmax.y, tmax.z); // 最远离开
+   ```
+
+------
+
+### 判定逻辑
+
+- `dstB < dstA` → 射线不能穿过盒子 → 无交点
+- `dstB < 0` → 整个盒子都在射线起点后面 → 无交点
+
+------
+
+### 返回值
+
+- `dstToBox`：射线起点到进入盒子的最近距离
+  - 如果起点在盒子外：正常返回
+  - 如果起点在盒子内：会是负数， `max(0, dstA)` 返回0
+- `dstInBox`：射线在盒子内部能走的距离
+
+------
+
