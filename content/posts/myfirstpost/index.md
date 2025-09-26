@@ -37,13 +37,13 @@ float2 RayBoxDst(float3 boxMin, float3 boxMax, float3 pos, float3 rayDir)
 ### 公式推导
 
 1. **射线方程**
-  $$
+$$
   P(t) = pos + t \cdot rayDir, \quad t \geq 0
-  $$
+$$
   AABB（轴对齐包围盒）：
-  $$
+$$
   boxMin \leq P(t) \leq boxMax
-  $$
+$$
 
 2. **每个轴的交点参数**
 
@@ -82,5 +82,14 @@ float2 RayBoxDst(float3 boxMin, float3 boxMax, float3 pos, float3 rayDir)
   - 如果起点在盒子内：会是负数， `max(0, dstA)` 返回0
 - `dstInBox`：射线在盒子内部能走的距离
 
-------
+![小鸡](featured1.png)
 
+[A Minimal Ray-Tracer](https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-sphere-intersection.html?utm_source=chatgpt.com)
+
+
+
+[Fewes/CloudNoiseGen: A static utility class for Unity which handles generating and loading periodic, cloud-like (perlin-worley) 3D noise textures on the GPU.](https://github.com/Fewes/CloudNoiseGen/tree/master)
+
+[【GPU Pro 7】Real-Time Volumetric Cloudscapes - 简书](https://www.jianshu.com/p/ae1d13bb0d86)
+
+[(25 封私信 / 80 条消息) Unity URP RayMarching 体积云 - 知乎](https://zhuanlan.zhihu.com/p/440607144)
