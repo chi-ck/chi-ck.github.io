@@ -93,3 +93,5 @@ $$
 [【GPU Pro 7】Real-Time Volumetric Cloudscapes - 简书](https://www.jianshu.com/p/ae1d13bb0d86)
 
 [(25 封私信 / 80 条消息) Unity URP RayMarching 体积云 - 知乎](https://zhuanlan.zhihu.com/p/440607144)
+
+[Horizon：zero Dawn Cloud System - 图形和 GPU 编程 - GameDev.net](https://www.gamedev.net/forums/topic/680832-horizonzero-dawn-cloud-system/?page=6)
